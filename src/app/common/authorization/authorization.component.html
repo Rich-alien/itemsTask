@@ -1,0 +1,22 @@
+<div class="authorization">
+  <div class="authorization__logo">
+    app
+  </div>
+  <form class="authorization__form"
+        [formGroup]='formAuthorization'>
+    <input class="authorization__form-input"
+           placeholder="Почта"
+           formControlName='email'
+           type="text">
+    <input class="authorization__form-input"
+           placeholder="Пароль"
+           formControlName='password'
+           type="password">
+    <button class="authorization__form-button"
+            (click)="postData()"
+    >POST
+    </button>
+  </form>
+
+
+</div>

@@ -1,0 +1,51 @@
+.authorization{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  height: 568px;
+  border: 1px solid white;
+  background-color: #F5F7FB;
+  border-radius: 15px;
+  &__logo{
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 90%;
+    background-color: #3A549F;
+  }
+  &__form{
+    display: flex;
+    padding: 26px 10px;
+    align-items: center;
+    flex-direction: column;
+    &-input{
+      &::placeholder{
+        font-size: 14px;
+      }
+      width: 288px;
+      padding: 16px 0 16px 16px;
+      font-size: 14px;
+      background: #FFFFFF;
+      border: 1px solid #E5E8EE;
+      border-radius: 16px;
+      margin-bottom: 8px;
+    }
+    &-button{
+      cursor: pointer;
+      margin-top: 80px;
+      color: white;
+      border: none;
+      width: 288px;
+      height: 40px;
+      background: #006FFF;
+      box-shadow: 0 0 12px rgba(0, 111, 255, 0.32);
+      border-radius: 16px;
+    }
+  }
+}
