@@ -4,25 +4,18 @@
     <div class="list-of-items__table-name">NAME</div>
     <div class="list-of-items__table-time">TIME</div>
   </div>
-
   <div *ngFor="let item of dataItems; let i = index"
        class="list-of-items__table">
-    <div class="list-of-items__table-id">{{item.id}}</div>
-    <div class="list-of-items__table-name">{{item.name}}</div>
-    <div class="list-of-items__table-time">{{getTime(i)}} </div>
-    <!--    <tr-->
-    <!--        class="list-of-items__table-row">-->
-    <!--      -->
-    <!--    </tr>-->
-    <!--    <tr-->
-    <!--    class="list-of-items__table-row">-->
-    <!--      <td >{{item.name}}</td>-->
-    <!--    </tr>-->
-    <!--    <tr-->
-    <!--        class="list-of-items__table-row">-->
-    <!--      <td >{{item.last_active}}</td>-->
-    <!--    </tr>-->
-    <!--    <button (click)="getTime(i)">ffffff</button>-->
+    <div class="list-of-items__table-id">
+      {{item.id}}</div>
+    <div class="list-of-items__table-name">
+      {{item.name}}</div>
+    <div class="list-of-items__table-time">
+      <p>0{{getTime(i).getDay()}}:</p>
+      <p>0{{getTime(i).getMonth()+1}}:</p>
+      <p>{{getTime(i).getFullYear()}}</p>
+      <p class="list-of-items__hour">{{getTime(i).getHours()}}:</p>
+      <p>{{getTime(i).getMinutes()}}</p>
+    </div>
   </div>
-
 </div>

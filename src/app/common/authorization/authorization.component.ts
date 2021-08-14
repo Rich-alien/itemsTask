@@ -1,11 +1,12 @@
 import {Component} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import {
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
+import {Router} from "@angular/router";
+import {TokenServiceService} from "../../services/token-service.service";
 
 @Component({
   selector: 'b-authorization',
@@ -14,15 +15,14 @@ import {
 })
 export class AuthorizationComponent {
 
-  private readonly TOKEN_KEY: string = 'accessToken';
+
 
   constructor(private http: HttpClient,
-              private cookieService: CookieService
+              private cookieService: TokenServiceService,
+              private router: Router
   ) {
   }
 
-  //Email: demo@nekta.tech
-  // Пароль: qwertyqwerty
   formAuthorization = new FormGroup({
     email: new FormControl('demo@nekta.tech', [Validators.required,
       Validators.email, Validators.maxLength(255)]),
@@ -40,10 +40,8 @@ export class AuthorizationComponent {
     this.http.post('https://core.nekta.cloud/api/auth/login',
       body).subscribe(
       (body: any) => {
-        const time = new Date();
-        time.setHours(time.getHours() + 1);
-        let token = body.data.access_token;
-        this.cookieService.set(this.TOKEN_KEY, token, time, '/')
+        this.cookieService.setToken(body.data.access_token)
+        this.router.navigate(['/list']);
       },
       error => {
         console.log(error);

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
+import {TokenServiceService} from "../../services/token-service.service";
 
 @Component({
   selector: 'b-list-of-items',
@@ -8,7 +8,7 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./list-of-items.component.less']
 })
 export class ListOfItemsComponent implements OnInit {
-  private readonly TOKEN_KEY: string = 'accessToken';
+
   dataItems: any = []
   url: string = 'https://core.nekta.cloud/api/device/metering_devices'
   body: Object = {
@@ -23,23 +23,24 @@ export class ListOfItemsComponent implements OnInit {
     "append_fields": ["active_polling", "attributes", "tied_point"],
     "per_page": 10
   }
-  getTime(id: number): Date{
-      let time = new Date(this.dataItems[id].last_active);
-      return time;
+
+  getTime(id: number): Date {
+    console.log(new Date(this.dataItems[id].last_active))
+    return new Date(this.dataItems[id].last_active);
   }
+
   constructor(private http: HttpClient,
-              private cookieService: CookieService) {
+              private cookieService: TokenServiceService) {
   }
 
   ngOnInit(): void {
     this.http.post(this.url, this.body, {
         headers: {
-          Authorization: 'Bearer ' + this.cookieService.get(this.TOKEN_KEY)
+          Authorization: 'Bearer ' + this.cookieService.getToken()
         }
       }
-      ).subscribe(
+    ).subscribe(
       (body: any) => {
-        console.log(body);
         this.dataItems = (body.data.metering_devices.data as Array<Object>);
       },
       error => {
