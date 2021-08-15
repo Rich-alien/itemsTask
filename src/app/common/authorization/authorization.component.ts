@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {HttpClient} from '@angular/common/http';
 import {
   FormControl,
   FormGroup,
@@ -7,6 +6,7 @@ import {
 } from '@angular/forms';
 import {Router} from "@angular/router";
 import {TokenServiceService} from "../../services/token-service.service";
+import {AuthorizationService} from "../../services/authorization.service";
 
 @Component({
   selector: 'b-authorization',
@@ -15,14 +15,6 @@ import {TokenServiceService} from "../../services/token-service.service";
 })
 export class AuthorizationComponent {
 
-
-
-  constructor(private http: HttpClient,
-              private cookieService: TokenServiceService,
-              private router: Router
-  ) {
-  }
-
   formAuthorization = new FormGroup({
     email: new FormControl('demo@nekta.tech', [Validators.required,
       Validators.email, Validators.maxLength(255)]),
@@ -30,17 +22,22 @@ export class AuthorizationComponent {
       Validators.maxLength(255), Validators.minLength(8)])
   })
 
+  constructor(
+    private tokenServiceService: TokenServiceService,
+    private router: Router,
+    private authorizationService: AuthorizationService
+  ) {
+  }
+
   postData() {
-    let body = {
+    const bodyAuthorization = {
       "email": this.formAuthorization.value.email,
       "password": this.formAuthorization.value.password,
       "personal_data_access": true
     }
-
-    this.http.post('https://core.nekta.cloud/api/auth/login',
-      body).subscribe(
+    this.authorizationService.postAuthorizationData(bodyAuthorization).subscribe(
       (body: any) => {
-        this.cookieService.setToken(body.data.access_token)
+        this.tokenServiceService.setToken(body.data.access_token)
         this.router.navigate(['/list']);
       },
       error => {

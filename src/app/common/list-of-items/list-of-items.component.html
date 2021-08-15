@@ -11,11 +11,7 @@
     <div class="list-of-items__table-name">
       {{item.name}}</div>
     <div class="list-of-items__table-time">
-      <p>0{{getTime(i).getDay()}}:</p>
-      <p>0{{getTime(i).getMonth()+1}}:</p>
-      <p>{{getTime(i).getFullYear()}}</p>
-      <p class="list-of-items__hour">{{getTime(i).getHours()}}:</p>
-      <p>{{getTime(i).getMinutes()}}</p>
+      {{item.last_active | date: 'short'}}
     </div>
   </div>
 </div>
