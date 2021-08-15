@@ -37,7 +37,7 @@ export class AuthorizationComponent {
     }
     this.authorizationService.postAuthorizationData(bodyAuthorization).subscribe(
       (body: any) => {
-        this.tokenServiceService.setToken(body.data.access_token)
+        this.tokenServiceService.setToken(body.data.access_token);
         this.router.navigate(['/list']);
       },
       error => {

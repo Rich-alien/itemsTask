@@ -18,6 +18,7 @@ export class ListOfItemsComponent implements OnInit {
   ngOnInit(): void {
     this.itemsService.postItemsData().subscribe(
       (body: any) => {
+        console.log(body);
         this.dataItems = (body.data.metering_devices.data as Array<Object>);
       },
       error => {
